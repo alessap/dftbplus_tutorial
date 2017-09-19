@@ -1,0 +1,7 @@
+
+To run the optimization execute:
+
+$ sbatch submit.slurm 
+
+The software will automatically read the "dftb_in.hsd" file as input file.
+
