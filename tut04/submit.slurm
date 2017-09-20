@@ -14,18 +14,20 @@ date
 source ~/.bashrc
 
 export OMP_NUM_THREADS=32
-mkdir -p GS contacts
+
+mkdir -p GS
+mkdir -p contacts
 
 ulimit -s unlimited
 
 #echo 'junction single point DFTB'
 cp dftb_in.hsd.junction dftb_in.hsd
-srun -n 32 dftb+mpi-negf-r4921-ifort
+srun -n 32 ../bin/dftb+mpi-negf-r4921-ifort
 cp detailed.out detailed_junction.out
 
 # echo 'transport only of junction single point DFTB'
 cp dftb_in.hsd.device dftb_in.hsd
-srun -n 32 dftb+mpi-negf-r4921-ifort
+srun -n 32 ../bin/dftb+mpi-negf-r4921-ifort
 cp detailed.out detailed_device.out
 
 date

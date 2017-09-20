@@ -12,7 +12,7 @@ tut01/              geometry optimization
 
 tut02/              plot orbitals
 
-tut03/              cluster transport computation (without pbc)
+tut03/              cluster transport computation (without periodic boundary conditions (pbc))
 
-tut04/              supercell transport computation using a patched version of DFTB+NEGF (with pbc)
+tut04/              supercell transport computation using a modified version of DFTB+NEGF (with pbc)
 
