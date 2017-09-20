@@ -1,0 +1,52 @@
+############################################################################
+#
+# Sample input file for the waveplot tool
+#
+# For details about the syntax and the options see the manual
+#
+############################################################################
+# The files "detailed.xml" and "eigenvec.bin" must be created during the
+# DFTB+ run by setting in the input file ("dftb_in.hsd") the options 
+# WriteDetailedXML and WriteEigenvectors to Yes.
+############################################################################
+
+# General options
+Options = {
+  TotalChargeDensity = Yes              # Total density be plotted?
+  TotalChargeDifference = Yes           # Total density difference plotted?
+  ChargeDensity = Yes                   # Charge density for each state?
+  RealComponent = Yes                   # Real component of the wavefunction?
+  PlottedSpins = { 1 -1 }
+  PlottedLevels = 21:22                 # Levels to plot
+  PlottedRegion =  {                    # Region to plot
+    Origin [Angstrom] = { -15.0 -15.0 -15.0 }
+    Box [Angstrom] = {
+       30.0 0.0 0.0
+       0.0 30.0 0.0
+       0.0 0.0 30.0
+#    Origin [Angstrom] = { -2.0 -2.0 -2.0 }
+#    Box [Angstrom] = {
+#       4.0 0.0 0.0
+#       0.0 4.0 0.0
+#       0.0 0.0 4.0
+    }
+  }
+  NrOfPoints = { 50 50 50 }            # Number of grid points in each direction
+  NrOfCachedGrids = -1                 # Nr of cached grids (speeds up things)
+  Verbose = Yes                        # Wanna see a lot of messages?
+}
+
+DetailedXML = "detailed.xml"           # File containing the detailed xml output
+                                       # of DFTB+
+EigenvecBin = "eigenvec.bin"           # File cointaining the binary eigenvecs
+
+
+# Definition of the basis
+Basis = {
+  Resolution = 0.01
+  # Including mio-0-1.hsd. (If you use a set, which depends on other sets,
+  # the wfc.*.hsd files for each required set must be included in a similar
+  # way.
+  <<+ ../slater_koster/mio-1-1/wcf.mio-1-1.hsd 
+}
+

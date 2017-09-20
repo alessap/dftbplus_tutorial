@@ -1,0 +1,7 @@
+
+To run the optimization execute:
+
+$ sbatch submit.slurm 
+
+The dftb+ will automatically read the "dftb_in.hsd" file as input file, while waveplot will read "waveplot_in.hsd". 
+

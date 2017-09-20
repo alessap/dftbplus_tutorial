@@ -1,0 +1,28 @@
+Geometry = GenFormat {
+<<< 'bdt.gen'
+}
+
+Driver = ConjugateGradient{
+    MaxForceComponent = 1e-5
+    MaxSteps = 500000
+    AppendGeometries = Yes
+    OutputPrefix = "mol_optimized"
+    }
+
+Hamiltonian = DFTB {
+  SCC = Yes 
+  MaxSCCIterations = 200 
+  SCCTolerance = 1e-7
+  Mixer=Broyden{MixingParameter=0.20}
+  MaxAngularMomentum = {
+    S = "d"
+    C = "p"
+    H = "s"
+  }
+  SlaterKosterFiles = Type2FileNames{
+    Prefix    =  "../slater_koster/mio-1-1/"
+    Separator = "-"
+    Suffix    = ".skf"
+    LowerCaseTypeName = No
+  }
+}

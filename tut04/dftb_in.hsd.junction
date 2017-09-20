@@ -1,0 +1,49 @@
+Geometry = {
+  GenFormat {
+  <<< 'moljunction.gen'
+  }
+}
+
+
+Driver = {}
+
+Hamiltonian = DFTB {
+  EwaldParameter = 0.1
+  WriteShift=Yes
+  SCC = Yes 
+  SCCTolerance = 1e-7
+  MaxSCCIterations = 500
+  Mixer=Broyden{MixingParameter=0.001}
+  #OrbitalResolvedSCC = No
+  OrbitalResolvedSCC = Yes
+  MaxAngularMomentum = {
+    S = "d"
+    C = "p"
+    H = "s"
+    Au = "d"
+  }
+
+  Filling = Fermi {
+    Temperature [Kelvin] = 0
+  }
+
+  SlaterKosterFiles = Type2FileNames{
+    Prefix    =  "../slater_koster/auorg/"
+    Separator = "-"
+    Suffix    = ".skf"
+    LowerCaseTypeName = No
+  }
+
+  KpointsAndWeights = SupercellFolding{ 
+    4   0   0
+    0   4   0
+    0   0   1
+    0.5 0.5 0.0  
+  }	
+
+  Electrostatics = GammaFunctional{}
+
+  Eigensolver = DivideAndConquer{} 
+	
+}
+

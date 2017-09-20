@@ -1,0 +1,18 @@
+
+To run the transprot calculation execute:
+
+$ sbatch submit.slurm
+
+This tutorial shows how to use a modified version 
+of DFTB+NEGF that allows to obtain a transport computation
+on a periodic junction from a single point computation.
+This allows to overcome problems such as non-convergnece or
+high computational cost of the traditional NEGF method that
+I have encountered several times.
+
+Gabriele Penazzi (at the time a post-doctoral fellow at Bremen
+working with Thomas Fraunheim) gave us this modified DFTB+ 
+soruce code. This allows to obtain the shift file (WriteShift = Yes)
+The device computation is obtained by reading this file (ReadShift = Yes)
+and carrying out a TransportOnly computation.
+

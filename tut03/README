@@ -1,0 +1,63 @@
+
+To run the transprot calculation execute:
+
+$ sbatch submit.slurm
+
+A file "detailed.out" is created for each calculation. 
+In order to not overwrite it, you can run:
+
+$ cp dftb_in.hsd.drain dftb_in.hsd
+$ ./../bin/dftb+negf
+$ cp detailed.out detailed_drain.out
+$ 
+$ cp dftb_in.hsd.source dftb_in.hsd
+$ ./../bin/dftb+negf
+$ cp detailed.out detailed_source.out
+$ 
+$ cp dftb_in.hsd.device dftb_in.hsd
+$ ./../bin/dftb+negf
+$ cp detailed.out detailed_device.out
+
+Drain and source computation create respectively 
+shiftcont_drain.dat and shiftcont_source.dat files.
+To obtain correct shiftcont files, the contact 
+computations are carried out with periodic boundary conditions.
+Here, the device is computed without periodic boundary conditions.
+You can run these once, preferably with higher kpoints, 
+and then, simply paste the shiftcont files in the folder 
+where you will only run the device computation.
+
+Remeber to generate your molecular junction with the same
+contact size of the shiftcont computation.
+
+The detailed.out files contains the Fermi energy that is 
+necessary as input information for the device computation.
+
+The local current can be computed only when the device has no 
+periodicity (cluster)
+To plot the local currents you can use the my_flux_custom executable.
+You can find the source file in the bin/ folder.
+
+Executing it without input file, the executable prints a little 
+guide on how to use it.
+
+$ ./../bin/my_flux_custom 
+
+ flux -a|b 'lcurrent.dat' natoms maxneigbors [fraction width cutoff color]
+  *** Modified by Alessandro Pirrotta, compiled on 2016-10-17 MacMini ***
+  -a : atom currents; -b: bond currents
+  natoms: number of NON-metal-atoms in flux file
+          in this way only end-atom to end-atom
+          local currents are plotted
+  maxneighbours: neighbours considered in flux calculation
+  fraction [1.0]: The arrow lengths are normalized to I_max/fraction
+  width [1.0]: arrows are given a width depending on length
+               arrows too long are made thicker and rescaled
+  cutoff [0.02]: 2 % cut off of local current contribution
+  color  ['r']: 'rb': red and blue  or 'r': only red or 'g': only green
+
+For example, for this tutorial you can run:
+
+$ ./../bin/my_flux_custom -b lcurrents_u.dat 16 40 1.0 0.5 0.02 rb > flux_16_40_1.0_0.5_0.02_rb.dat
+
+

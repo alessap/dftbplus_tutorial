@@ -1,0 +1,74 @@
+Geometry = {
+  GenFormat {
+  <<< 'moljunct_C.gen'
+  }
+}
+
+Transport {
+    Device {
+      AtomRange = 1  16
+    }
+    Contact {
+      Id = "source"
+      AtomRange = 17 112
+      FermiLevel [eV] = -4.6653
+      Potential [eV]  = 0.01
+      WideBand = Yes
+      LevelSpacing [eV] = 20.0
+    }
+    Contact {
+      Id = "drain"
+      AtomRange = 113 208
+      FermiLevel [eV] = -4.6653
+      Potential [eV] = -0.01
+      WideBand = Yes
+      LevelSpacing [eV] = 20.0
+    }
+    Task = UploadContacts {}
+}
+Driver = {}
+Hamiltonian = DFTB {
+  # EwaldParameter=0.1
+  SCC = Yes
+  SCCTolerance = 1e-7
+  MaxSCCIterations = 1000
+  Mixer=Broyden{MixingParameter=0.0005}
+  OrbitalResolvedSCC = Yes
+  MaxAngularMomentum = {
+    S = "d"
+    C = "p"
+    H = "s"
+    Au = "d"
+  }
+  Filling = Fermi {
+    Temperature [Kelvin] = 0
+  }
+  SlaterKosterFiles = Type2FileNames{
+    Prefix    =  "../slater_koster/auorg/"
+    Separator = "-"
+    Suffix    = ".skf"
+    LowerCaseTypeName = No
+  }
+  Electrostatics = Poisson {
+    PoissonBox [Angstrom] = 30.0 30.0 30.0
+    MinimalGrid [Angstrom] = 0.4 0.4 0.4
+    BuildBulkPotential = No
+    SavePotential = No
+    AtomDensityTolerance = 1e-5
+    PoissonAccuracy = 1e-7
+  }
+  Eigensolver = GreensFunction {
+    Delta [eV] = 1e-15
+    ContourPoints = 30 40
+    LowestEnergy [eV] = -60.0
+    EnclosedPoles = 3
+    LocalCurrents = Yes
+  }
+  }
+  Analysis  {
+    TunnelingAndDOS {
+    Delta [eV] = 1e-15
+    EnergyRange [eV] = {-8.6653 0.6653}
+    EnergyStep [eV] = 0.02
+    }
+}

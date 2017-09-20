@@ -1,0 +1,30 @@
+Geometry = {
+  GenFormat {
+  <<< 'mol_optimized.gen'
+  }
+}
+  Driver = {
+  }
+Hamiltonian = DFTB {
+  SCC = Yes 
+  SCCTolerance = 1e-7
+  MaxSCCIterations = 500
+  Mixer=Broyden{MixingParameter=0.05}
+  MaxAngularMomentum = {
+    S = "d"
+    C = "p"
+    H = "s"
+  }
+  SlaterKosterFiles = Type2FileNames{
+    Prefix    =  "../slater_koster/mio-1-1/"
+    Separator = "-"
+    Suffix    = ".skf"
+    LowerCaseTypeName = No
+  }
+}
+Options = {
+  WriteDetailedOut = Yes
+  WriteBandOut = Yes
+  WriteDetailedXML = Yes
+  WriteEigenvectors = Yes
+}

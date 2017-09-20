@@ -1,0 +1,62 @@
+Geometry = {
+  GenFormat {
+  <<< 'moljunct_S.gen'
+  }
+}
+
+
+Transport {
+    Device {
+      AtomRange = 1  16
+    }
+    Contact {
+      Id = "source"
+      AtomRange = 17 112
+    }
+    Contact {
+      Id = "drain"
+      AtomRange = 113 208
+    }
+  Task = ContactHamiltonian{
+    ContactId = source
+  }
+}
+
+
+Driver = {}
+
+Hamiltonian = DFTB {
+  SCC = Yes 
+  SCCTolerance = 1e-7
+  MaxSCCIterations = 200
+  Mixer=Broyden{MixingParameter=0.001}
+  OrbitalResolvedSCC = Yes
+  MaxAngularMomentum = {
+    S = "d"
+    C = "p"
+    H = "s"
+    Au = "d"
+  }
+
+  Filling = Fermi {
+    Temperature [Kelvin] = 0 
+  }
+  SlaterKosterFiles = Type2FileNames{
+    Prefix    =  "../slater_koster/auorg/"
+    Separator = "-"
+    Suffix    = ".skf"
+    LowerCaseTypeName = No
+  }
+  KpointsAndWeights = SupercellFolding{
+    4   0  0
+    0   4  0
+    0   0  1
+    0.5 0.5 0
+  }	
+
+  Electrostatics = GammaFunctional{}
+
+  Eigensolver = DivideAndConquer{} 
+	
+}
+
