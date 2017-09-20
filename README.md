@@ -1,6 +1,7 @@
 # dftbplus_tutorial
 
-DFTB+ tutorial written by Alessandro Pirrotta
+DFTB+ tutorial written by Alessandro Pirrotta.
+
 This tutorial can be used on Linux system with the Slurm Workload Manager.
 Both binary files and Slater-Koster parameters are NOT included here as can be downloaded from http://dftbplus.org and http://www.dftb.org.
 
